@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
           </div>
           
           <a
-            href="https://github.com"
+            href="https://github.com/PreetJawla/Minimal-Typing-Speed-test"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors duration-200"
