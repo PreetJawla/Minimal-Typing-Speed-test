@@ -1,4 +1,4 @@
-# TypeSpeed Pro - Typing Speed Test
+# SpeedyType Master - Typing Speed Test
 
 A beautiful and interactive typing speed test application built with React, TypeScript, and Tailwind CSS.
 

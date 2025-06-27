@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
             </div>
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                TypeSpeed Pro
+                SpeedyType Master
               </h1>
               <p className="text-sm text-gray-600">Master your typing skills</p>
             </div>
