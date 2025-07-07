@@ -36,10 +36,3 @@ export const getBestWPM = (): number => {
   return Math.max(...results.map(result => result.wpm));
 };
 
-export const getRecentProgress = (days: number = 7): TypingResult[] => {
-  const results = getResults();
-  const cutoffDate = new Date();
-  cutoffDate.setDate(cutoffDate.getDate() - days);
-  
-  return results.filter(result => new Date(result.date) >= cutoffDate);
-};

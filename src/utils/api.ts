@@ -39,70 +39,14 @@ function getRandomFallbackQuote() {
   return fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
 }
 
-// Helper to combine fallback quotes until minimum length is reached
-function getLongFallbackContent(minLength = 300) {
-  let content = '';
-  const usedIndexes = new Set<number>();
-  while (content.length < minLength && usedIndexes.size < fallbackQuotes.length) {
-    let idx: number;
-    do {
-      idx = Math.floor(Math.random() * fallbackQuotes.length);
-    } while (usedIndexes.has(idx));
-    usedIndexes.add(idx);
-    content += (content ? ' ' : '') + fallbackQuotes[idx].content;
-  }
-  return content;
-}
 
 export const fetchTypingText = async (): Promise<QuoteResponse> => {
-  try {
-    // Try to fetch from Quotable API first
-    const response = await fetch('https://api.quotable.io/quotes/random?minLength=150&maxLength=300&limit=1');
-    
-    if (!response.ok) {
-      throw new Error('API request failed');
-    }
-    
-    const data = await response.json();
-    
-    if (data && data.length > 0) {
-      const quote = data[0];
-      
-      // Extend the quote to ensure we have enough content
-      let extendedContent = quote.content;
-      
-      // If the quote is too short, fetch another one and combine
-      if (extendedContent.length < 200) {
-        try {
-          const secondResponse = await fetch('https://api.quotable.io/quotes/random?minLength=100&limit=1');
-          if (secondResponse.ok) {
-            const secondData = await secondResponse.json();
-            if (secondData && secondData.length > 0) {
-              extendedContent += ' ' + secondData[0].content;
-            }
-          }
-        } catch {
-          // If second fetch fails, use fallback
-          extendedContent += ' ' + fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)].content;
-        }
-      }
-      
-      return {
-        content: extendedContent,
-        author: quote.author || 'Unknown',
-        length: extendedContent.length
-      };
-    }
-  } catch (error) {
-    console.warn('Failed to fetch from API, using fallback quotes:', error);
-  }
-
-  // Fallback to local quotes, but ensure minimum length
-  const minLength = 300;
-  const content = getLongFallbackContent(minLength);
+  // Use only local mini-stories for reliable content
+  const randomQuote = getRandomFallbackQuote();
+  
   return {
-    content,
-    author: 'Various',
-    length: content.length
+    content: randomQuote.content,
+    author: randomQuote.author,
+    length: randomQuote.length
   };
 };
