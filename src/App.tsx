@@ -67,7 +67,7 @@ function App() {
       };
       saveResult(result);
     }
-  }, [isFinished, stats, duration, currentText]);
+  }, [isFinished]); // Only depend on isFinished to prevent multiple saves
 
   const handleRestart = () => {
     resetTest();

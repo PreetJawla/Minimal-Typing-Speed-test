@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { History as HistoryIcon, TrendingUp, Award, Trash2 } from 'lucide-react';
 import { TypingResult } from '../types';
 import { getResults, clearResults, getAverageWPM, getBestWPM } from '../utils/storage';
 
 export const History: React.FC = () => {
-  const [results, setResults] = useState<TypingResult[]>(getResults());
+  const [results, setResults] = useState<TypingResult[]>([]);
   const [showChart, setShowChart] = useState(false);
+
+  // Simple effect to load results
+  useEffect(() => {
+    const loadResults = () => {
+      setResults(getResults());
+    };
+    
+    loadResults();
+    
+    // Check for updates every 2 seconds
+    const interval = setInterval(loadResults, 2000);
+    
+    return () => clearInterval(interval);
+  }, []);
 
   const handleClearHistory = () => {
     if (window.confirm('Are you sure you want to clear all typing history?')) {
