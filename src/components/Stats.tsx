@@ -49,15 +49,11 @@ export const Stats: React.FC<StatsProps> = ({ stats, isActive, isFinished }) => 
             key={index}
             className={`${item.bgColor} rounded-xl p-4 transition-all duration-300 ${
               isActive || isFinished ? 'scale-105 shadow-md' : 'shadow-sm'
-            }`}
+            } flex flex-col items-center justify-center`}
           >
-            <div className="flex items-center space-x-3">
-              <Icon className={`w-6 h-6 ${item.color}`} />
-              <div>
-                <p className="text-sm font-medium text-gray-600">{item.label}</p>
-                <p className={`text-2xl font-bold ${item.color}`}>{item.value}</p>
-              </div>
-            </div>
+            <Icon className={`w-6 h-6 ${item.color} mb-2`} />
+            <p className="text-sm font-medium text-gray-600">{item.label}</p>
+            <p className={`text-2xl font-bold ${item.color}`}>{item.value}</p>
           </div>
         );
       })}
